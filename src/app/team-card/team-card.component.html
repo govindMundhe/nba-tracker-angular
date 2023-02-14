@@ -1,0 +1,77 @@
+<div class="p-3" *ngIf="results">
+  <div class="card team-card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-8">
+          <h5 class="card-title">
+            {{ team["full_name"] }} [{{ team["abbreviation"] }}]
+          </h5>
+          <p class="small fw-bold m-0">{{ team["conference"] }} Conference</p>
+        </div>
+        <div class="col">
+          <button
+            type="button"
+            class="btn-close text-end float-end"
+            aria-label="Close"
+            (click)="removeSection(team)"
+          ></button>
+        </div>
+      </div>
+      <div class="card-text">
+        <div class="row">
+          <div class="col-8 py-3">
+            <div class="result-section">
+              <p>Results of past 12 days</p>
+              <span *ngFor="let result of results">
+                <span
+                  class="small d-inline-block bg-success text-white rounded-circle px-2 m-1"
+                  *ngIf="result['winStatus'] == 'W'"
+                  >W</span
+                >
+                <span
+                  class="small d-inline-block bg-danger text-white rounded-circle px-2 m-1"
+                  *ngIf="result['winStatus'] == 'L'"
+                  >L</span
+                >
+              </span>
+            </div>
+            <div class="py-2">
+              <p class="mb-0">
+                <b>Avg Points Scored :</b> {{ avgPoints | number : "1.0-2" }}
+              </p>
+              <p class="mb-0">
+                <b>Avg Points Conceded :</b>
+                {{ avgPointsOpp | number : "1.0-2" }}
+              </p>
+            </div>
+          </div>
+          <div class="col-4">
+            <img
+              class="float-end p-3"
+              width="130px"
+              [src]="
+                'https://interstate21.com/nba-logos/' +
+                team['abbreviation'] +
+                '.png'
+              "
+              alt="{{ team['abbreviation'] }} ' logo'"
+            />
+          </div>
+        </div>
+      </div>
+      <button
+        type="button"
+        class="btn btn-success"
+        [routerLink]="['/results', team['id']]"
+      >
+        See Game results >>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="d-flex justify-content-center spinner-wrapper" *ngIf="loading">
+  <div class="spinner-border text-info" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>

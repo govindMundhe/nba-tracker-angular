@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="wrapper p-4">
+    <div class="card" *ngIf="team">
+      <div class="card-body">
+        <div class="row">
+          <div class="col">
+            <h5 class="card-title">
+              {{ team["full_name"] }} [{{ team["abbreviation"] }}]
+            </h5>
+            <p class="small fw-bold m-0">{{ team["conference"] }} Conference</p>
+          </div>
+        </div>
+        <div class="card-text">
+          <div class="row">
+            <div class="col p-3">
+              <p>Scores of past 12 days</p>
+              <div *ngFor="let result of results">
+                <p><b>{{result['home_team']['abbreviation']}}</b> {{result['home_team_score']}} - {{result['visitor_team_score']}} <b>{{result['visitor_team']['abbreviation']}}</b></p>
+              </div>
+            </div>
+            <div class="col">
+              <img
+                class="float-end p-3"
+                width="150px"
+                [src]="
+                  'https://interstate21.com/nba-logos/' +
+                  team['abbreviation'] +
+                  '.png'
+                "
+                alt="{{ team['abbreviation'] }} ' logo'"
+              />
+            </div>
+          </div>
+        </div>
+        <button
+          type="button"
+          class="btn btn-success"
+          [routerLink]="['']"
+        >
+           << Back to all team stats
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="d-flex justify-content-center spinner-wrapper" *ngIf="loading">
+  <div class="spinner-border text-info" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
