@@ -16,7 +16,7 @@ export class ResultsComponent {
   constructor(private route: ActivatedRoute, private apiService : ApiService) {}
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.paramMap.get('id') || '';
+    this.id = this.route.snapshot.paramMap.get('teamCode') || '';
     this.trackTeam(this.id);
     this.getTeamDetails(this.id);
   }

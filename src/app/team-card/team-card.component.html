@@ -13,6 +13,7 @@
             type="button"
             class="btn-close text-end float-end"
             aria-label="Close"
+            id="remove{{team['abbreviation']}}"
             (click)="removeSection(team)"
           ></button>
         </div>
@@ -62,6 +63,7 @@
       <button
         type="button"
         class="btn btn-success"
+        id="results{{team['abbreviation']}}"
         [routerLink]="['/results', team['id']]"
       >
         See Game results >>

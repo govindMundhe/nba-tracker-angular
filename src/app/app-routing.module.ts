@@ -5,7 +5,7 @@ import { ResultsComponent } from './results/results.component';
 
 const routes: Routes = [
   {path:'', component: HomeComponent},
-  {path:'results/:id', component: ResultsComponent}
+  {path:'results/:teamCode', component: ResultsComponent}
 ];
 
 @NgModule({
