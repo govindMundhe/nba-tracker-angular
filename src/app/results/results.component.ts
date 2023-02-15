@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Team } from '../shared/interfaces/team.model';
+import { Team, Result } from '../shared/interfaces/team.model';
 import { ApiService } from '../shared/services/api.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { ApiService } from '../shared/services/api.service';
 })
 export class ResultsComponent {
   id!: string;
-  results:[] = [];
+  results :Result[] = [];
   loading: boolean = false;
   team!: Team
   constructor(private route: ActivatedRoute, private apiService : ApiService) {}

@@ -10,10 +10,14 @@ import { environment } from '../../../environments/environment';
 // RxJs imports
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { ApiResponse, Team } from '../interfaces/team.model';
+import { Result, Team } from '../interfaces/team.model';
 
-export interface ResponseApi {
-  data: [];
+export interface TeamResponseApi {
+  data: Team[];
+}
+
+export interface ResultResponseApi {
+  data: Result[];
 }
 
 @Injectable({
@@ -28,7 +32,7 @@ export class ApiService {
   });
 
   getTeams() {
-    return <Observable<ResponseApi>>this.http.get(
+    return <Observable<TeamResponseApi>>this.http.get(
       environment.apiUrl + '/teams',
       {
         headers: this.headers,
@@ -38,7 +42,7 @@ export class ApiService {
 
   getAllDates(start: Date, end: Date) {
     for (
-      var arr = [], dt = new Date(start);
+      var arr: string[] = [], dt: Date = new Date(start);
       dt <= new Date(end);
       dt.setDate(dt.getDate() + 1)
     ) {
@@ -64,7 +68,7 @@ export class ApiService {
     });
 
     params = params.append('per_page', 12);
-    return <Observable<ResponseApi>>this.http.get(
+    return <Observable<ResultResponseApi>>this.http.get(
       environment.apiUrl + '/games',
       {
         params: params,

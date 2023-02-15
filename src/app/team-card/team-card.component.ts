@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Team } from '../shared/interfaces/team.model';
+import { Result, Team } from '../shared/interfaces/team.model';
 import { ApiService } from '../shared/services/api.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { ApiService } from '../shared/services/api.service';
 export class TeamCardComponent implements OnInit {
   @Input() team!: Team;
   @Output() removeTeam = new EventEmitter<Team>()
-  results!: [];
+  results!: Result[];
   avgPoints: number = 0;
   avgPointsOpp: number = 0;
   loading : boolean = false;
@@ -34,9 +34,9 @@ export class TeamCardComponent implements OnInit {
     return arr.reduce((a, b) => a + b) / arr.length;
   }
 
-  checkWinner(id: string, results: []) {
-    let teamPoints: [] = [];
-    let oppPoints: [] = [];
+  checkWinner(id: string, results: Result[]) {
+    let teamPoints: number[] = [];
+    let oppPoints: number[] = [];
     results.forEach((result) => {
       if (result['home_team']['id'] === id) {
         teamPoints.push(result['home_team_score']);
