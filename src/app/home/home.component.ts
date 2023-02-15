@@ -9,7 +9,7 @@ import { ApiService } from '../shared/services/api.service';
 })
 export class HomeComponent implements OnInit {
   teams: Team[] = [];
-  selectedTeam: String = 'Select Team';
+  selectedTeam: string = 'Select Team';
   selectedTeamsArr: Team[] = [];
   loading : boolean = false;
   constructor(private apiService: ApiService) {}
@@ -38,7 +38,7 @@ export class HomeComponent implements OnInit {
 
   trackTeam() {
     this.loading = true;
-    let selectedTeam = this.selectedTeam;
+    let selectedTeam : string = this.selectedTeam;
     let selectedTeamArr:Team = this.teams.filter(function (o) {
       return o['id'] == selectedTeam;
     })[0]

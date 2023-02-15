@@ -52,14 +52,14 @@ export class ApiService {
   }
 
   getGames(id: string) {
-    let data = {};
-    let idArr = [id];
-    let date = new Date();
-    let today = new Date();
+    let data: object = {};
+    let idArr: string[] = [id];
+    let date : Date = new Date();
+    let today : Date = new Date();
     date.setDate(date.getDate() - 12);
-    let datePrev12 = date;
-    let dateDiff = this.getAllDates(datePrev12, today);
-    let params = new HttpParams();
+    let datePrev12 : Date = date;
+    let dateDiff : string[] = this.getAllDates(datePrev12, today);
+    let params : HttpParams = new HttpParams();
     dateDiff.forEach((date) => {
       params = params.append(decodeURIComponent('dates[]'), date);
     });
