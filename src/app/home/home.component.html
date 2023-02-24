@@ -9,8 +9,8 @@
         [(ngModel)]="selectedTeam"
       >
         <option selected="selected" disabled>Select Team</option>
-        <option *ngFor="let team of teams" value="{{ team['id'] }}">
-          {{ team["city"] }}
+        <option *ngFor="let team of teams" value="{{ team.id }}">
+          {{ team.city }}
         </option>
       </select>
     </div>

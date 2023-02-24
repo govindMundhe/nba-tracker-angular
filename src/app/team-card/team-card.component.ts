@@ -38,18 +38,18 @@ export class TeamCardComponent implements OnInit {
     let teamPoints: number[] = [];
     let oppPoints: number[] = [];
     results.forEach((result) => {
-      if (result['home_team']['id'] === id) {
-        teamPoints.push(result['home_team_score']);
-        oppPoints.push(result['visitor_team_score']);
-        if (result['home_team_score'] > result['visitor_team_score']) {
+      if (result.home_team.id === id) {
+        teamPoints.push(result.home_team_score);
+        oppPoints.push(result.visitor_team_score);
+        if (result.home_team_score > result.visitor_team_score) {
           Object.assign(result, { winStatus: 'W' });
         } else {
           Object.assign(result, { winStatus: 'L' });
         }
-      } else if (result['visitor_team']['id'] === id) {
-        teamPoints.push(result['visitor_team_score']);
-        oppPoints.push(result['home_team_score']);
-        if (result['home_team_score'] < result['visitor_team_score']) {
+      } else if (result.visitor_team.id === id) {
+        teamPoints.push(result.visitor_team_score);
+        oppPoints.push(result.home_team_score);
+        if (result.home_team_score < result.visitor_team_score) {
           Object.assign(result, { winStatus: 'W' });
         } else {
           Object.assign(result, { winStatus: 'L' });
