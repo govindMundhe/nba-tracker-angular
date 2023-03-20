@@ -8,8 +8,7 @@ import {
 import { environment } from '../../../environments/environment';
 
 // RxJs imports
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { Result, Team } from '../interfaces/team.model';
 
 export interface TeamResponseApi {
@@ -31,13 +30,10 @@ export class ApiService {
     'X-RapidAPI-Host': environment.apiHost,
   });
 
-  getTeams() {
-    return <Observable<TeamResponseApi>>this.http.get(
-      environment.apiUrl + '/teams',
-      {
-        headers: this.headers,
-      }
-    );
+  getTeams(): Observable<TeamResponseApi> {
+    return this.http.get<TeamResponseApi>(environment.apiUrl + '/teams', {
+      headers: this.headers,
+    });
   }
 
   getAllDates(start: Date, end: Date) {
@@ -51,15 +47,15 @@ export class ApiService {
     return arr;
   }
 
-  getGames(id: string) {
+  getGames(id: string): Observable<ResultResponseApi> {
     let data: object = {};
     let idArr: string[] = [id];
-    let date : Date = new Date();
-    let today : Date = new Date();
+    let date: Date = new Date();
+    let today: Date = new Date();
     date.setDate(date.getDate() - 12);
-    let datePrev12 : Date = date;
-    let dateDiff : string[] = this.getAllDates(datePrev12, today);
-    let params : HttpParams = new HttpParams();
+    let datePrev12: Date = date;
+    let dateDiff: string[] = this.getAllDates(datePrev12, today);
+    let params: HttpParams = new HttpParams();
     dateDiff.forEach((date) => {
       params = params.append(decodeURIComponent('dates[]'), date);
     });
@@ -68,21 +64,15 @@ export class ApiService {
     });
 
     params = params.append('per_page', 12);
-    return <Observable<ResultResponseApi>>this.http.get(
-      environment.apiUrl + '/games',
-      {
-        params: params,
-        headers: this.headers,
-      }
-    );
+    return this.http.get<ResultResponseApi>(environment.apiUrl + '/games', {
+      params: params,
+      headers: this.headers,
+    });
   }
 
-  getSpecificTeam(id: string) {
-    return <Observable<Team>>this.http.get(
-      environment.apiUrl + '/teams/' + id,
-      {
-        headers: this.headers,
-      }
-    );
+  getSpecificTeam(id: string): Observable<Team> {
+    return this.http.get<Team>(environment.apiUrl + '/teams/' + id, {
+      headers: this.headers,
+    });
   }
 }

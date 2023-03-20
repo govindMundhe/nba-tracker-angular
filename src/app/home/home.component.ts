@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Team } from '../shared/interfaces/team.model';
 import { ApiService } from '../shared/services/api.service';
-
+import { DataSharingService } from '../shared/services/data-sharing.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -12,14 +12,10 @@ export class HomeComponent implements OnInit {
   selectedTeam: string = 'Select Team';
   selectedTeamsArr: Team[] = [];
   loading : boolean = false;
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService, private dataSharing : DataSharingService) {}
 
   ngOnInit() {
-    let selectedTeams: string | null = window.sessionStorage.getItem('selectedTeams') ? (window.sessionStorage.getItem('selectedTeams')) : ''
-    if(selectedTeams){
-      this.selectedTeamsArr = JSON.parse(selectedTeams)
-    }
-    console.log(this.selectedTeamsArr);
+    this.selectedTeamsArr = this.dataSharing.getSelectedTeam();
     this.getTeams();
   }
 
@@ -40,15 +36,14 @@ export class HomeComponent implements OnInit {
     this.loading = true;
     let selectedTeam : string = this.selectedTeam;
     let selectedTeamArr:Team = this.teams.filter(function (o) {
-      return o['id'] == selectedTeam;
+      return o.id == selectedTeam;
     })[0]
     if (!this.selectedTeamsArr.includes(selectedTeamArr)) {
       this.selectedTeamsArr.push(
         selectedTeamArr
       );
     }
-    console.log(typeof(this.selectedTeamsArr));
-    window.sessionStorage.setItem("selectedTeams", JSON.stringify(this.selectedTeamsArr));
+    this.dataSharing.setSelectedTeams(this.selectedTeamsArr);
     this.loading = false;
   }
 
@@ -56,7 +51,7 @@ export class HomeComponent implements OnInit {
     this.loading = true;
     let indexOfteam: number = this.selectedTeamsArr.indexOf(team);
     this.selectedTeamsArr.splice(indexOfteam, 1);
-    window.sessionStorage.setItem("selectedTeams", JSON.stringify(this.selectedTeamsArr));
+    this.dataSharing.setSelectedTeams(this.selectedTeamsArr);
     this.loading = false;
   }
 }
