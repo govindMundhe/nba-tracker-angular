@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Result, Team } from '../shared/interfaces/team.model';
 import { ApiService } from '../shared/services/api.service';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-team-card',
@@ -14,6 +15,7 @@ export class TeamCardComponent implements OnInit {
   avgPoints: number = 0;
   avgPointsOpp: number = 0;
   loading : boolean = false;
+  public subscription : Subscription = new Subscription();
   constructor(private apiService: ApiService) {}
 
   ngOnInit() {
@@ -22,7 +24,7 @@ export class TeamCardComponent implements OnInit {
 
   trackTeam(id: string) {
     this.loading =true
-    this.apiService.getGames(id).subscribe(
+    this.subscription =this.apiService.getGames(id).subscribe(
       (res) => (this.results = res.data),
       (err) => console.log(err),
       () => {this.checkWinner(id, this.results)
@@ -65,5 +67,9 @@ export class TeamCardComponent implements OnInit {
 
   removeSection(team: Team){
     this.removeTeam.emit(team);
+  }
+
+  ngOnDestroy(){
+    this.subscription.unsubscribe();
   }
 }
