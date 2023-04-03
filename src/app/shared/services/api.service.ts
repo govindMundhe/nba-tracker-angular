@@ -30,7 +30,7 @@ export class ApiService {
     'X-RapidAPI-Host': environment.apiHost,
   });
 
-  getTeams(): Observable<TeamResponseApi> {
+  getTeams() {
     return this.http.get<TeamResponseApi>(environment.apiUrl + '/teams', {
       headers: this.headers,
     });
@@ -47,7 +47,7 @@ export class ApiService {
     return arr;
   }
 
-  getGames(id: string): Observable<ResultResponseApi> {
+  getGames(id: string) {
     let data: object = {};
     let idArr: string[] = [id];
     let date: Date = new Date();
@@ -70,7 +70,7 @@ export class ApiService {
     });
   }
 
-  getSpecificTeam(id: string): Observable<Team> {
+  getSpecificTeam(id: string) {
     return this.http.get<Team>(environment.apiUrl + '/teams/' + id, {
       headers: this.headers,
     });
