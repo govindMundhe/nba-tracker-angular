@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Team } from '../shared/interfaces/team.model';
 import { ApiService } from '../shared/services/api.service';
 import { DataSharingService } from '../shared/services/data-sharing.service';
@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   teams: Team[] = [];
   selectedTeam: string = 'Select Team';
   selectedTeamsArr: Team[] = [];

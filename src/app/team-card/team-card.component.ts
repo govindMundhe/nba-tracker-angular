@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Result, Team } from '../shared/interfaces/team.model';
 import { ApiService } from '../shared/services/api.service';
 import { Observable, Subscription } from 'rxjs';
@@ -8,7 +8,7 @@ import { Observable, Subscription } from 'rxjs';
   templateUrl: './team-card.component.html',
   styleUrls: ['./team-card.component.scss'],
 })
-export class TeamCardComponent implements OnInit {
+export class TeamCardComponent implements OnInit, OnDestroy {
   @Input() team!: Team;
   @Output() removeTeam = new EventEmitter<Team>()
   results!: Result[];

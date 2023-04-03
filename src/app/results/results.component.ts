@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Team, Result } from '../shared/interfaces/team.model';
 import { ApiService } from '../shared/services/api.service';
@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './results.component.html',
   styleUrls: ['./results.component.scss'],
 })
-export class ResultsComponent {
+export class ResultsComponent implements OnInit, OnDestroy {
   id!: string;
   results: Result[] = [];
   loading: boolean = false;
